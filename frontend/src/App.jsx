@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import SignUp from './pages/SignUp'
-import SignIn from './pages/SignIn'
+import SignUp from './Pages/SignUp'
+import SignIn from './Pages/SignIn'
 import ForgotPassword from './Pages/ForgotPassword'
 import getCurrentUser from './hooks/getCurrentUser'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,7 +23,7 @@ import TrackOrder from './Pages/TrackOrder'
 import Shop from './Pages/Shop'
 import { io } from 'socket.io-client'
 import { setSocket } from './redux/userSlice'
-export const serverUrl = "http://localhost:8000"
+export const serverUrl = "https://bitez-backend-bl22.onrender.com"
 
 
 function App() {

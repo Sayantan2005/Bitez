@@ -2,8 +2,38 @@ import sgMail from '@sendgrid/mail';
 import dotenv from "dotenv";
 dotenv.config();
 
+<<<<<<< HEAD
 // Set SendGrid API key from environment variables
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+=======
+// Create a transporter object that is responsible for sending emails
+// It defines which email service to use and how to authenticate
+const transporter = nodemailer.createTransport({
+    // Specifies the email service provider (Gmail SMTP)
+    service: "Gmail",
+    // host: "smtp.gmail.com",
+
+    // SMTP port for secure email sending (465 = SSL)
+    port: 465,
+
+    // true means emails will be sent using SSL encryption
+    // (required when using port 465)
+    secure: true,
+
+    // Authentication details for the email account
+    auth: {
+        // Email address from which emails will be sent
+        // Stored in environment variables for security
+        user: process.env.EMAIL,
+
+        // App Password generated from Gmail (not normal Gmail password)
+        // Stored securely in environment variables
+        pass: process.env.PASS,
+    },
+});
+
+// transporter is later used to send emails like OTP, reset links, etc.
+>>>>>>> 090e901c762ad794387ad7aa00f7bad032b41ab3
 
 // Function to send OTP email for password reset
 // `to`  → recipient email address
@@ -17,16 +47,41 @@ export const sendOtpMail = async (to, otp) => {
             html: `<p>Your OTP for password reset is <b>${otp}</b>. It expires in 5 minutes.</p>`
         };
 
+<<<<<<< HEAD
         await sgMail.send(msg);
         console.log('OTP email sent successfully');
     } catch (error) {
         console.error('Error sending OTP email:', error);
         throw new Error('Failed to send OTP email');
     }
+=======
+   try{
+        // Send an email using the configured Nodemailer transporter
+    await transporter.sendMail({
+
+        // Sender email address (from environment variables)
+        from: process.env.EMAIL,
+
+        // Receiver email address
+        to,
+
+        // Subject line of the email
+        subject: "Reset Your Password",
+
+        // HTML content of the email
+        // Includes the OTP and its expiry information
+        html: `<p>Your OTP for password reset is <b>${otp}</b>. It expires in 5 minutes.</p>`
+    });
+   }catch(error){
+        console.error("Mail sending error:", error);
+   }
+    
+>>>>>>> 090e901c762ad794387ad7aa00f7bad032b41ab3
 };
 
 // Function to send Delivery OTP email
 export const sendDeliveryOTPMail = async (user, otp) => {
+<<<<<<< HEAD
     try {
         const msg = {
             to: user.email, // Recipient email
@@ -40,6 +95,27 @@ export const sendDeliveryOTPMail = async (user, otp) => {
     } catch (error) {
         console.error('Error sending delivery OTP email:', error);
         throw new Error('Failed to send delivery OTP email');
+=======
+    try{
+    // Send an email using the configured Nodemailer transporter
+    await transporter.sendMail({
+
+        // Sender email address (from environment variables)
+        from: process.env.EMAIL,
+
+        // Receiver email address
+        to:user.email,
+
+        // Subject line of the email
+        subject: "Delivery OTP",
+
+        // HTML content of the email
+        // Includes the OTP and its expiry information
+        html: `<p>Your OTP for delivery is <b>${otp}</b>. It expires in 5 minutes.</p>`
+    });
+    }catch(error){
+     console.error("Mail sending error:", error);
+>>>>>>> 090e901c762ad794387ad7aa00f7bad032b41ab3
     }
 };
 
