@@ -6,7 +6,8 @@ dotenv.config()
 // It defines which email service to use and how to authenticate
 const transporter = nodemailer.createTransport({
     // Specifies the email service provider (Gmail SMTP)
-    service: "Gmail",
+    // service: "Gmail",
+    host: "smtp.gmail.com",
 
     // SMTP port for secure email sending (465 = SSL)
     port: 465,
