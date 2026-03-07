@@ -38,7 +38,11 @@ const server = http.createServer(app)
 // Create Socket.IO server and attach it to HTTP server
 const io = new Server(server, {
     cors: {
-        origin: "https://bitez-4xju.onrender.com", // frontend URL
+        origin:  [
+  "http://localhost:5173",        // Vite dev server
+  "http://localhost:3000",        // React dev server
+  "https://bitez-4xju.onrender.com" // production frontend
+], // frontend URL
         credentials: true,               // allow cookies
         methods: ['POST', 'GET']         // allowed methods
     }
@@ -59,7 +63,11 @@ app.use(express.json())
 
 // Enable CORS for Express APIs
 app.use(cors({
-    origin: "https://bitez-4xju.onrender.com",
+    origin:  [
+  "http://localhost:5173",        // Vite dev server
+  "http://localhost:3000",        // React dev server
+  "https://bitez-4xju.onrender.com" // production frontend
+],
     credentials: true
 }))
 
